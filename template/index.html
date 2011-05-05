@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <title>Plack::Middleware::*</title>
+    <style>
+        div.containar { width : 800px; margin-right : auto; margin-left : auto; }
+        div.containar > h1 { font-size : 24px; }
+        dt { font-size : 18px; margin : 5px; color : #336699; text-decoration : underline; }
+        dd.description { font-size : 14px; }
+        dd.author { font-size : 10px; text-align : right; }
+        pre.pod { color : gray; }
+        a { color : #336699; text-decoration : none;}
+    </style>
+
+    <script>
+        $(function () {
+            $("dt").click(function () {
+                var module = $(this).parent().attr("id");
+                // jQuery selector doesn't allow to use /:/ as a id/class name. see also http://api.jquery.com/category/selectors/
+                var id = module.replace(/:/g, "\\:");
+                $("div#" + id + " > pre").append( $("<img>").attr({src: 'http://jsajax.com/images/spinner.gif'}) );
+                $.getJSON('/pod/' + module, function (json) {
+                    if (json._source) {
+                        $("div#" + id + " > pre").text(json._source.text).addClass('pod');
+                    } else {
+                        $("div#" + id + " > pre").html("Document is not provided").addClass('pod');
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+<body><div class="containar">
+        <pre class="pod"></pre>
+    <h1>Plack::Middleware::*</h1>
+
+    <dl>
+    %% for $result.keys() -> $key {
+        <div id="[% $key %]">
+            <dt>[% $key %]</dt>
+                <dd class="description"> [% $result[$key]['description'] %] </dd>
+                <pre></pre>
+                <dd class="author"><a href="http://search.cpan.org/perldoc?[% $key %]">[% $result[$key]['author'] %]</a></dd>
+        </div>
+
+    %% }
+    </dl>
+
+</div></body>
+</html>
+
