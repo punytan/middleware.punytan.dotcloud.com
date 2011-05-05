@@ -1,4 +1,7 @@
 Revision history for Perl extension App::ListMiddleware
 
+0.02    Thu May  5 22:15:08 2011
+        - first stable
+
 0.01    Thu May  5 16:07:21 2011
         - original version
