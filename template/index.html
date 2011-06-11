@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <title>Plack::Middleware::*</title>
     <style>
         div.containar { width : 800px; margin-right : auto; margin-left : auto; }
@@ -18,9 +18,13 @@
         $(function () {
             $("dt").click(function () {
                 var module = $(this).parent().attr("id");
-                // jQuery selector doesn't allow to use /:/ as a id/class name. see also http://api.jquery.com/category/selectors/
+
+                // jQuery selector doesn't allow to use /:/ as a id/class name.
+                // See also http://api.jquery.com/category/selectors/
                 var id = module.replace(/:/g, "\\:");
-                $("div#" + id + " > pre").append( $("<img>").attr({src: 'http://jsajax.com/images/spinner.gif'}) );
+                $("div#" + id + " > pre").append(
+                    $("<img>", {src: 'http://jsajax.com/images/spinner.gif'}));
+
                 $.getJSON('/pod/' + module, function (json) {
                     if (json._source) {
                         $("div#" + id + " > pre").text(json._source.text).addClass('pod');
