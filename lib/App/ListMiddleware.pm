@@ -1,7 +1,7 @@
 package App::ListMiddleware;
 use strict;
 use warnings;
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 use parent 'Lanky::Handler';
 
 use JSON;
