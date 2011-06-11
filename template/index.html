@@ -25,12 +25,8 @@
                 $("div#" + id + " > pre").append(
                     $("<img>", {src: 'http://jsajax.com/images/spinner.gif'}));
 
-                $.getJSON('/pod/' + module, function (json) {
-                    if (json._source) {
-                        $("div#" + id + " > pre").text(json._source.text).addClass('pod');
-                    } else {
-                        $("div#" + id + " > pre").html("Document is not provided").addClass('pod');
-                    }
+                $.get('/pod/' + module, function (html) {
+                    $("div#" + id + " > pre").html(html).addClass('pod');
                 });
             });
         });
